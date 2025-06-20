@@ -15,7 +15,11 @@ export const createBook = async (req: Request, res: Response) => {
             data
         })
     } catch (error) {
-        console.log("server error", error)
+        res.send({
+            message: "Validation failed",
+            success: false,
+            error
+        })
     }
 }
 
@@ -29,7 +33,7 @@ export const getBook = async (req: Request, res: Response) => {
         if(bookGenre){
             data = await Books.find({genre: bookGenre})
         }else{
-            data = await Books.find()
+            data = await Books.find().sort({"createdAt": "asc"}).limit(10)
         }
 
         res.send({
@@ -38,7 +42,11 @@ export const getBook = async (req: Request, res: Response) => {
             data
         })
     } catch (error) {
-        console.log("server error", error)
+        res.send({
+            message: "Validation failed",
+            success: false,
+            error
+        })
     }
 }
 
@@ -53,7 +61,11 @@ export const getSingleBook = async (req: Request, res: Response) => {
             data
         })
     } catch (error) {
-        console.log("server error", error)
+        res.send({
+            message: "Validation failed",
+            success: false,
+            error
+        })
     }
 }
 
@@ -69,7 +81,11 @@ export const DeleteBook = async (req: Request, res: Response) => {
             data
         })
     } catch (error) {
-        console.log("server error", error)
+        res.send({
+            message: "Validation failed",
+            success: false,
+            error
+        })
     }
 }
 
@@ -86,7 +102,11 @@ export const updateBook = async (req: Request, res: Response) => {
             data
         })
     } catch (error) {
-        console.log("server error", error)
+        res.send({
+            message: "Validation failed",
+            success: false,
+            error
+        })
     }
 }
 
