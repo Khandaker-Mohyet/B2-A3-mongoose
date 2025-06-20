@@ -2,12 +2,23 @@ import express from "express"
 import cors from "cors"
 import config from "./config"
 import mongoose from "mongoose"
+import { bookRouter } from "./modules/books/books.route"
 
 
 const app = express()
 
 app.use(cors())
 app.use(express.json())
+
+
+
+app.use(bookRouter)
+
+
+
+app.get("/",(req,res)=>{
+    res.send({success: true, message:"Khandaker Mohyet Assignment Work station"})
+})
 
 
 
