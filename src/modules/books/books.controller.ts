@@ -53,7 +53,7 @@ export const getSingleBook = async (req: Request, res: Response) => {
 export const DeleteBook = async (req: Request, res: Response) => {
     try {
         const bookId = req.params.bookId
-        const data = await Books.findByIdAndDelete(bookId)
+        const data = await Books.findByIdAndDelete(bookId,{new:true})
 
         res.send({
             success: true,
