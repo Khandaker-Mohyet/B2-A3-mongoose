@@ -22,7 +22,15 @@ export const createBook = async (req: Request, res: Response) => {
 export const getBook = async (req: Request, res: Response) => {
     try {
         
-        const data = await Books.find()
+        const bookGenre = req.query.genre?req.query.genre:"" ;
+
+        let data = []
+
+        if(bookGenre){
+            data = await Books.find({genre: bookGenre})
+        }else{
+            data = await Books.find()
+        }
 
         res.send({
             success: true,
