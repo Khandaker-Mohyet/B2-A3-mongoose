@@ -48,3 +48,38 @@ export const getSingleBook = async (req: Request, res: Response) => {
         console.log("server error", error)
     }
 }
+
+
+export const DeleteBook = async (req: Request, res: Response) => {
+    try {
+        const bookId = req.params.bookId
+        const data = await Books.findByIdAndDelete(bookId)
+
+        res.send({
+            success: true,
+            message: "Book find Successfully",
+            data
+        })
+    } catch (error) {
+        console.log("server error", error)
+    }
+}
+
+
+export const updateBook = async (req: Request, res: Response) => {
+    try {
+        const bookId = req.params.bookId
+        const body = req.body
+        const data = await Books.findByIdAndUpdate(bookId, body, {new:true, runValidators:true})
+
+        res.send({
+            success: true,
+            message: "Book find Successfully",
+            data
+        })
+    } catch (error) {
+        console.log("server error", error)
+    }
+}
+
+
