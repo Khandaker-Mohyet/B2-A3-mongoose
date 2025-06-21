@@ -3,7 +3,7 @@ import cors from "cors"
 import config from "./config"
 import mongoose from "mongoose"
 import { bookRouter } from "./modules/books/books.route"
-import { borrowRoute } from "./modules/borrow/borrow.route"
+import { borrowRouter } from "./modules/borrow/borrow.route"
 
 
 const app = express()
@@ -14,7 +14,7 @@ app.use(express.json())
 
 
 app.use(bookRouter)
-app.use(borrowRoute)
+app.use(borrowRouter)
 
 
 
