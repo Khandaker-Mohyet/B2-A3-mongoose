@@ -4,51 +4,50 @@ import Books from "../books/books.model";
 
 
 
-export const createBorrow = async (req:Request, res:Response)=>{
-
-    try {
+export const createBorrow = async (req: Request, res: Response) => {
+  try {
     const { book: bookId, quantity, dueDate } = req.body;
-    
 
     const book = await Books.findById(bookId);
+
     if (!book) {
-      return res.status(404).json({
+      res.status(404).json({
         success: false,
         message: "Book not found",
       });
-    }
-
-    if (book.copies < quantity) {
-      return res.status(400).json({
+    } else if (book.copies < quantity) {
+      res.status(400).json({
         success: false,
         message: `Only ${book.copies} copies are available`,
       });
+    } else {
+      // Update book copies and availability
+      book.copies -= quantity;
+      book.updateAvailability();
+      await book.save();
+
+      // Create borrow entry
+      const borrow = await Borrow.create({
+        book: book._id,
+        quantity,
+        dueDate,
+      });
+
+      res.status(201).json({
+        success: true,
+        message: "Book borrowed successfully",
+        data: borrow,
+      });
     }
 
-    book.copies -= quantity;
-    book.updateAvailability();
-    await book.save();
-
-   
-    const borrow = await Borrow.create({
-      book: book._id,
-      quantity,
-      dueDate,
-    });
-
-    res.status(201).json({
-      success: true,
-      message: "Book borrowed successfully",
-      data: borrow,
-    });
   } catch (error) {
     res.status(500).json({
       success: false,
       message: "Failed to borrow book",
-      error: error,
+      error,
     });
   }
-}
+};
 
 export const getBorrow = async (req: Request, res: Response) => {
   try {

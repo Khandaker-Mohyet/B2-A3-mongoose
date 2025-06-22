@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.bookRouter = void 0;
+const express_1 = require("express");
+const books_controller_1 = require("./books.controller");
+exports.bookRouter = (0, express_1.Router)();
+exports.bookRouter.post("/api/books", books_controller_1.createBook);
+exports.bookRouter.get("/api/books", books_controller_1.getBook);
+exports.bookRouter.get("/api/books/:bookId", books_controller_1.getSingleBook);
+exports.bookRouter.put("/api/books/:bookId", books_controller_1.updateBook);
+exports.bookRouter.delete("/api/books/:bookId", books_controller_1.DeleteBook);
