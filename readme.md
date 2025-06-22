@@ -35,4 +35,4 @@ A simple Library Management System built using **Express.js**, **TypeScript**, a
 
 ```bash
 git clone https://github.com/Khandaker-Mohyet/B2-A3-mongoose.git
-cd library-management-api
+cd B2-A3-mongoose
